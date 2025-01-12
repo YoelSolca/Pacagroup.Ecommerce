@@ -16,7 +16,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Features
             services.AddCors(options => options.AddPolicy(myPolicy, builder => builder.WithOrigins(configuration["Config:OriginCors"])
                                                                                       .AllowAnyHeader()
                                                                                       .AllowAnyMethod()));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddMvc();
 
             return services;
         }
