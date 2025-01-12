@@ -17,6 +17,7 @@ using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.NewFolder;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Transversal.Logging;
 using Pacagroup.Ecommerce.Transversal.Mapper;
@@ -41,6 +42,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi
             services.AddInjection(this.Configuration);
             services.AddAuthentication(this.Configuration);
             services.AddSwagger();
+            services.AddValidator();
 
         }
 
