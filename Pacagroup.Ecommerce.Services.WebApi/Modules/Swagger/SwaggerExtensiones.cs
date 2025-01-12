@@ -3,12 +3,14 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
 using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Collections.Generic;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 {
     public static class SwaggerExtensiones
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services) 
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -36,27 +38,28 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                var security = new OpenApiSecurityScheme
                 {
-                    Description = "Authorization by API key.",
+                    Name = "Authorization",
+                    Description = "Enter JWT Bearer authorization token **_only_**",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Name = "Authorization"
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(security.Reference.Id, security);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {security, new List<string>() }
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[]{ }
-                    }
-                });
             });
 
             return services;
