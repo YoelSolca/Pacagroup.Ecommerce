@@ -27,7 +27,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             if (!validation.IsValid)
             {
-                response.Message = "Errores de validación.";
+                response.Message = "Errores de Validación";
                 response.Error = validation.Errors;
                 return response;
             }
