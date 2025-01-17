@@ -1,25 +1,23 @@
-﻿
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
-using System;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Modules.NewFolder
+namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication
 {
-    public static class AuthenticationExtensiones
+    public static class AuthenticationExtensions
     {
-        public static IServiceCollection AddAuthentication (this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var appSettingsSection = configuration.GetSection("Config");
             services.Configure<AppSettings>(appSettingsSection);
 
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
-
 
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             var Issuer = appSettings.Issuer;
@@ -63,10 +61,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.NewFolder
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
             return services;
-
         }
-
     }
 }
