@@ -11,11 +11,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class UsersController : Controller
     {
         private readonly IUsersApplication _usersApplication;
@@ -56,7 +57,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
                 {
                     new Claim(ClaimTypes.Name, usersDto.Data.UserId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _appSettings.Issuer,
                 Audience = _appSettings.Audience

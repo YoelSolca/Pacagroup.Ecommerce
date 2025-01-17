@@ -1,26 +1,16 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Application.Main;
-using Pacagroup.Ecommerce.Domain.Core;
-using Pacagroup.Ecommerce.Domain.Interface;
-using Pacagroup.Ecommerce.Infrastructure.Data;
-using Pacagroup.Ecommerce.Infrastructure.Interface;
-using Pacagroup.Ecommerce.Infrastructure.Repository;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Features;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.NewFolder;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
-using Pacagroup.Ecommerce.Transversal.Common;
-using Pacagroup.Ecommerce.Transversal.Logging;
-using Pacagroup.Ecommerce.Transversal.Mapper;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Pacagroup.Ecommerce.Services.WebApi
 {
@@ -41,13 +31,13 @@ namespace Pacagroup.Ecommerce.Services.WebApi
             services.AddFeatures(this.Configuration);
             services.AddInjection(this.Configuration);
             services.AddAuthentication(this.Configuration);
+            services.AddVersioning();
             services.AddSwagger();
             services.AddValidator();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -62,7 +52,11 @@ namespace Pacagroup.Ecommerce.Services.WebApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API Ecommerce V1");
+                // build a swagger endpoint for each discovered API version
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
             });
 
             app.UseCors(myPolicy);

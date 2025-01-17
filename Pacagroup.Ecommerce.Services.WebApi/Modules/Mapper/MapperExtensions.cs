@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper
 {
-    public static class MapperExtensiones
+    public static class MapperExtensions
     {
-        public static IServiceCollection AddMapper (this IServiceCollection services)
+        public static IServiceCollection AddMapper(this IServiceCollection services)
         {
             // Auto Mapper Configurations
             var mappingConfig = new MapperConfiguration(mc =>
@@ -15,8 +15,8 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-
-            return services;    
+            
+            return services;
         }
     }
 }

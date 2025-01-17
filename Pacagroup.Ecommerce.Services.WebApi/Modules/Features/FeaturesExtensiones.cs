@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Features
+namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Feature
 {
     public static class FeaturesExtensiones
     {
