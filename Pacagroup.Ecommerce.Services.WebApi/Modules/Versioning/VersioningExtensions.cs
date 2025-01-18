@@ -12,7 +12,8 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning
                 o.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
                 o.AssumeDefaultVersionWhenUnspecified = true;
                 o.ReportApiVersions = true;
-                o.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+                //o.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+                o.ApiVersionReader = new HeaderApiVersionReader("x-version");
             });
 
             services.AddVersionedApiExplorer(options =>
