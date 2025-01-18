@@ -14,7 +14,7 @@ using System.Text;
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
     public class UsersController : Controller
