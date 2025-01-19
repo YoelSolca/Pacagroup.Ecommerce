@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Pacagroup.Ecommerce.Infrastructure.Data\Pacagroup.Ecommerce.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\Pacagroup.Ecommerce.Infrastructure.Interface\Pacagroup.Ecommerce.Infrastructure.Interface.csproj" />
-    <ProjectReference Include="..\Pacagroup.Ecommerce.Transversal.Common\Pacagroup.Ecommerce.Transversal.Common.csproj" />
   </ItemGroup>
 
 </Project>
