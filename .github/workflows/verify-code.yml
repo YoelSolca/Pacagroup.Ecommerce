@@ -1,0 +1,38 @@
+name: Verify .NET Code on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - release/*
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el código del pull request
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Configurar .NET
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0' # Cambia según tu versión de .NET
+
+      # 3. Restaurar dependencias
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # 4. Verificar que el código compila correctamente
+      - name: Build solution
+        run: dotnet build --no-restore --configuration Release
+
+      # 5. Ejecutar pruebas unitarias
+      - name: Run tests
+        run: dotnet test --no-build --configuration Release --logger "trx"
+
+      # 6. Verificar formato de código
+      - name: Check code format
+        run: dotnet format --check
