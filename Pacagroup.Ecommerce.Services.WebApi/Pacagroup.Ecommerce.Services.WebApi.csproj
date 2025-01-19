@@ -5,6 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <PackageReleaseNotes>Actualizado a .NET Core 5.0</PackageReleaseNotes>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
