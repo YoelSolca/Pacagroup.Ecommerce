@@ -81,6 +81,17 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 
             return BadRequest(response.Message);
         }
+
+        [HttpGet("GetAllWithPagination")]
+        public IActionResult GetAllWithPagination([FromQuery] int pageNumbre, int pageSize)
+        {
+            var response = _customersApplication.GetaAllWithPagination(pageNumbre, pageSize);
+            if (response.IsSuccess)
+                return Ok(response);
+
+            return BadRequest(response.Message);
+        }
+
         #endregion
 
         #region "Métodos Asincronos"
@@ -147,7 +158,16 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
             return BadRequest(response.Message);
         }
 
-        #endregion
+        [HttpGet("GetAllWithPaginationAsync")]
+        public async Task<IActionResult> GetAllWithPaginationAsync([FromQuery] int pageNumbre, int pageSize)
+        {
+            var response = await _customersApplication.GetaAllWithPaginationAsync(pageNumbre, pageSize);
+            if (response.IsSuccess)
+                return Ok(response);
 
+            return BadRequest(response.Message);
+        }
+
+        #endregion
     }
 }
