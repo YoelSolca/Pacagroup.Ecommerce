@@ -100,6 +100,35 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             }
         }
 
+        public IEnumerable<Customers> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = "CustomersListWithPagination";
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("PageNumber", pageNumber);
+                parameters.Add("PageSize", pageSize);
+
+                var customers = connection.Query<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+                return customers;
+            }
+        }
+
+        public int Count()
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = "SELECT COUNT(*) FROM Customers";
+                
+                var result = connection.ExecuteScalar<int>(query, commandType: CommandType.Text);
+                return result;
+            }
+        }
+
+
         #endregion
 
         #region Métodos Asíncronos
@@ -183,6 +212,35 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
                 var customers = await connection.QueryAsync<Customers>(query, commandType: CommandType.StoredProcedure);
                 return customers;
+            }
+        }
+
+
+        public async Task<IEnumerable<Customers>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = "CustomersListWithPagination";
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("PageNumber", pageNumber);
+                parameters.Add("PageSize", pageSize);
+
+                var customers = await connection.QueryAsync<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+                return customers;
+            }
+        }
+
+        public async Task<int> CountAsync()
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = "SELECT COUNT(*) FROM Customers";
+
+                var result = await connection.ExecuteScalarAsync<int>(query, commandType: CommandType.Text);
+                return result;
             }
         }
 

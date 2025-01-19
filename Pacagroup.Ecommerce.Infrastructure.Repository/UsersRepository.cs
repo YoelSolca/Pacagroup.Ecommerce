@@ -29,6 +29,16 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             }
         }
 
+        public int Count()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> CountAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public bool Delete(string id)
         {
             throw new System.NotImplementedException();
@@ -54,6 +64,11 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             throw new System.NotImplementedException();
         }
 
+        public IEnumerable<Users> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<Users> GetAsync(string id)
         {
             throw new System.NotImplementedException();
@@ -75,6 +90,11 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
         }
 
         public Task<bool> UpdateAsync(Users entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<Users>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
         {
             throw new System.NotImplementedException();
         }
