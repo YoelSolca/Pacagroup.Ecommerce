@@ -26,9 +26,9 @@ namespace Pacagroup.Ecommerce.Application.Test
 
                 _configuration = builder.Build();
 
-            var startup = new Startup(_configuration);
+            //var startup = new Startup(_configuration);
             var services = new ServiceCollection();
-            startup.ConfigureServices(services);
+            //startup.ConfigureServices(services);
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
         }
 
