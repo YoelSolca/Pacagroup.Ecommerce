@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck
+﻿namespace Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck
 {
     public static class HealthCheckExtension
     {
@@ -9,12 +6,12 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck
         {
             services.AddHealthChecks()
                 .AddSqlServer(configuration.GetConnectionString("NorthwindConnection"), tags: new[] { "database" })
+                .AddRedis(configuration.GetConnectionString("RedisConnection"), tags: new[] { "cache" })
                 .AddCheck<HealthCheckCustom>("HealthCheckCustom", tags: new[] { "custom" });
 
             services.AddHealthChecksUI().AddInMemoryStorage();
 
             return services;
         }
-
     }
 }
