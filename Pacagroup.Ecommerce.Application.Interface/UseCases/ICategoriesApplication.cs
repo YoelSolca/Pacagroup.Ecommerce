@@ -3,7 +3,7 @@ using Pacagroup.Ecommerce.Transversal.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Application.Interface
+namespace Pacagroup.Ecommerce.Application.Interface.UseCases
 {
     public interface ICategoriesApplication
     {
