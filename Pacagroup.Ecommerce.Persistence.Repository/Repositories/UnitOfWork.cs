@@ -1,6 +1,6 @@
 ﻿using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
-namespace Pacagroup.Ecommerce.Persistence.Repository
+namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -14,7 +14,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repository
         {
             Customers = customers;
             Users = users;
-            Categories = categories;    
+            Categories = categories;
         }
 
         //this -> Objeto actual
