@@ -6,7 +6,7 @@ using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System;
 
-namespace Pacagroup.Ecommerce.Application.UseCases
+namespace Pacagroup.Ecommerce.Application.UseCases.Users
 {
     public class UsersApplication : IUsersApplication
     {
@@ -20,10 +20,10 @@ namespace Pacagroup.Ecommerce.Application.UseCases
             _mapper = iMapper;
             _usersDtoValidator = usersDtoValidator;
         }
-        public Response<UsersDto> Authenticate(string username, string password)
+        public Response<UserDto> Authenticate(string username, string password)
         {
-            var response = new Response<UsersDto>();
-            var validation = _usersDtoValidator.Validate(new UsersDto() { UserName = username, Password = password });
+            var response = new Response<UserDto>();
+            var validation = _usersDtoValidator.Validate(new UserDto() { UserName = username, Password = password });
 
             if (!validation.IsValid)
             {
@@ -34,7 +34,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases
             try
             {
                 var user = _unitOfWork.Users.Authenticate(username, password);
-                response.Data = _mapper.Map<UsersDto>(user);
+                response.Data = _mapper.Map<UserDto>(user);
                 response.IsSuccess = true;
                 response.Message = "Autenticación Exitosa!!!";
             }

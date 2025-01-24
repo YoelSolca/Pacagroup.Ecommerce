@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Application.UseCases
+namespace Pacagroup.Ecommerce.Application.UseCases.Categories
 {
     public class CategoriesApplication : ICategoriesApplication
     {
@@ -27,9 +27,9 @@ namespace Pacagroup.Ecommerce.Application.UseCases
         }
 
 
-        public async Task<Response<IEnumerable<CategoriesDto>>> GetAll()
+        public async Task<Response<IEnumerable<CategoryDto>>> GetAll()
         {
-            var response = new Response<IEnumerable<CategoriesDto>>();
+            var response = new Response<IEnumerable<CategoryDto>>();
             var cacheKey = "categoriesList";
 
             try
@@ -38,12 +38,12 @@ namespace Pacagroup.Ecommerce.Application.UseCases
 
                 if (redisCategories != null)
                 {
-                    response.Data = JsonSerializer.Deserialize<IEnumerable<CategoriesDto>>(redisCategories);
+                    response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDto>>(redisCategories);
                 }
                 else
                 {
                     var categories = await _unitOfWork.Categories.GetAll();
-                    response.Data = _mapper.Map<IEnumerable<CategoriesDto>>(categories);
+                    response.Data = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
                     if (response.Data != null)
                     {
@@ -64,7 +64,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases
                     response.Message = "Consulta exitosa!!";
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 response.Message = ex.Message;
             }

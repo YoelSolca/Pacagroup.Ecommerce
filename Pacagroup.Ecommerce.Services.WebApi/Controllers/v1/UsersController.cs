@@ -30,7 +30,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public IActionResult Authenticate([FromBody]UsersDto usersDto)
+        public IActionResult Authenticate([FromBody]UserDto usersDto)
         {
             var response = _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);
             if (response.IsSuccess)
@@ -47,7 +47,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
             return BadRequest(response);
         }
 
-        private string BuildToken(Response<UsersDto> usersDto)
+        private string BuildToken(Response<UserDto> usersDto)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
