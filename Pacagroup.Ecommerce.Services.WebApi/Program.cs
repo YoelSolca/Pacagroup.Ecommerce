@@ -30,7 +30,7 @@ builder.Services.AddSwagger();
 builder.Services.AddValidator();
 builder.Services.AddHealthCheck(builder.Configuration);
 builder.Services.AddWatchDog(builder.Configuration);
-builder.Services.AddRedisCache(builder.Configuration);
+//builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddRateLimiting(builder.Configuration);
 
 var app = builder.Build();

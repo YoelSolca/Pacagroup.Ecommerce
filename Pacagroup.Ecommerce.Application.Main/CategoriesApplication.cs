@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Caching.Distributed;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System;
 using System.Collections.Generic;
@@ -10,18 +10,18 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Application.Main
+namespace Pacagroup.Ecommerce.Application.UseCases
 {
     public class CategoriesApplication : ICategoriesApplication
     {
-        private readonly ICategoriesDomain _categoriesDomain;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IDistributedCache _distributedCache;
 
 
-        public CategoriesApplication(ICategoriesDomain categoriesDomain, IMapper mapper, IDistributedCache distributedCache)
+        public CategoriesApplication(IUnitOfWork unitOfWork, IMapper mapper, IDistributedCache distributedCache)
         {
-            _categoriesDomain = categoriesDomain;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _distributedCache = distributedCache;
         }
@@ -29,23 +29,23 @@ namespace Pacagroup.Ecommerce.Application.Main
 
         public async Task<Response<IEnumerable<CategoriesDto>>> GetAll()
         {
-           var response = new Response<IEnumerable<CategoriesDto>>();
+            var response = new Response<IEnumerable<CategoriesDto>>();
             var cacheKey = "categoriesList";
 
             try
             {
                 var redisCategories = await _distributedCache.GetAsync(cacheKey);
 
-                if(redisCategories != null)
+                if (redisCategories != null)
                 {
                     response.Data = JsonSerializer.Deserialize<IEnumerable<CategoriesDto>>(redisCategories);
                 }
                 else
                 {
-                    var categories = await _categoriesDomain.GetAll();
+                    var categories = await _unitOfWork.Categories.GetAll();
                     response.Data = _mapper.Map<IEnumerable<CategoriesDto>>(categories);
 
-                    if(response.Data != null)
+                    if (response.Data != null)
                     {
                         var serializedCategories = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response.Data));
                         var options = new DistributedCacheEntryOptions()
@@ -58,7 +58,7 @@ namespace Pacagroup.Ecommerce.Application.Main
                 }
 
 
-                if(response != null)
+                if (response != null)
                 {
                     response.IsSuccess = true;
                     response.Message = "Consulta exitosa!!";

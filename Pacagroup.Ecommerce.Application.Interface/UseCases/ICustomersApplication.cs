@@ -5,7 +5,7 @@ using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Application.Interface
+namespace Pacagroup.Ecommerce.Application.Interface.UseCases
 {
     public interface ICustomersApplication
     {
