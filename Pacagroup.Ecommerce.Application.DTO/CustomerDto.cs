@@ -2,7 +2,7 @@
 
 namespace Pacagroup.Ecommerce.Application.DTO
 {
-    public class CustomersDto
+    public class CustomerDto
     {
         public string CustomerId { get; set; }
         public string CompanyName { get; set; }

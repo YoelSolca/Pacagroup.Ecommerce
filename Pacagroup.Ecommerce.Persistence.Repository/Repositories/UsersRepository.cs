@@ -1,12 +1,12 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Persistence.Data;
+using Pacagroup.Ecommerce.Persistence.Contexts;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Persistence.Repository
+namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
@@ -15,7 +15,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repository
         {
             _context = context;
         }
-        public Users Authenticate(string userName, string password)
+        public User Authenticate(string userName, string password)
         {
             using (var connection = _context.CreateConnection())
             {
@@ -24,7 +24,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repository
                 parameters.Add("UserName", userName);
                 parameters.Add("Password", password);
 
-                var user = connection.QuerySingle<Users>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                var user = connection.QuerySingle<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return user;
             }
         }
@@ -49,52 +49,52 @@ namespace Pacagroup.Ecommerce.Persistence.Repository
             throw new System.NotImplementedException();
         }
 
-        public Users Get(string id)
+        public User Get(string id)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Users> GetAll()
+        public IEnumerable<User> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Users>> GetAllAsync()
+        public Task<IEnumerable<User>> GetAllAsync()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Users> GetAllWithPagination(int pageNumber, int pageSize)
+        public IEnumerable<User> GetAllWithPagination(int pageNumber, int pageSize)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Users> GetAsync(string id)
+        public Task<User> GetAsync(string id)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Insert(Users entity)
+        public bool Insert(User entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> InsertAsync(Users entity)
+        public Task<bool> InsertAsync(User entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Update(Users entity)
+        public bool Update(User entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(Users entity)
+        public Task<bool> UpdateAsync(User entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Users>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        public Task<IEnumerable<User>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
         {
             throw new System.NotImplementedException();
         }
