@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Interface
+namespace Pacagroup.Ecommerce.Application.Interface.Persistence
 {
     public interface ICategoriesRepository
     {

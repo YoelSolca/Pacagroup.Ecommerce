@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Interface
+namespace Pacagroup.Ecommerce.Application.Interface.Persistence
 {
     // IDisposable: Tiene metodos que permite liberar recursos en memoria.
     public interface IUnitOfWork : IDisposable

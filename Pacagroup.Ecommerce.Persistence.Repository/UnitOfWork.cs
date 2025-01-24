@@ -1,6 +1,6 @@
-﻿using Pacagroup.Ecommerce.Infrastructure.Interface;
+﻿using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Repository
+namespace Pacagroup.Ecommerce.Persistence.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
