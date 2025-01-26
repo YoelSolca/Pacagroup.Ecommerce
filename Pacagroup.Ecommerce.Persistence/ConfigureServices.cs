@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Persistence.Contexts;
 using Pacagroup.Ecommerce.Persistence.Interceptors;
 using Pacagroup.Ecommerce.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Pacagroup.Ecommerce.Persistence
 {
@@ -20,6 +20,7 @@ namespace Pacagroup.Ecommerce.Persistence
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
