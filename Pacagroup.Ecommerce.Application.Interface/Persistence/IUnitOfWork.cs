@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Pacagroup.Ecommerce.Application.Interface.Persistence
 {
@@ -8,5 +10,10 @@ namespace Pacagroup.Ecommerce.Application.Interface.Persistence
         ICustomersRepository Customers { get; }
         IUsersRepository Users { get; }
         ICategoriesRepository Categories { get; }
+
+        IDiscountRepository Discounts { get; }
+
+        //Persiste los cambios en la base de datos.
+        Task<int> Save(CancellationToken cancellationToken);
     }
 }

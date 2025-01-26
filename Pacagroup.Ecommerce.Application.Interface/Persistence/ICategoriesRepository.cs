@@ -1,4 +1,4 @@
-﻿using Pacagroup.Ecommerce.Domain.Entity;
+﻿using Pacagroup.Ecommerce.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
