@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
-using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Application.DTO;
 
-namespace Pacagroup.Ecommerce.Transversal.Mapper
+namespace Pacagroup.Ecommerce.Application.UseCases.Common.Mappings
 {
     public class MappingsProfile : Profile
     {
@@ -12,6 +12,7 @@ namespace Pacagroup.Ecommerce.Transversal.Mapper
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Discount, DiscountDto>().ReverseMap();
 
             //CreateMap<Customers, CustomersDto>().ReverseMap()
             //    .ForMember(destination => destination.CustomerId, source => source.MapFrom(src => src.CustomerId))
