@@ -132,12 +132,12 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
             return response;
         }
 
-        public async Task<Response<bool>> Delete(string id, CancellationToken cancellationToken = default)
+        public async Task<Response<bool>> Delete(int id, CancellationToken cancellationToken = default)
         {
             var response = new Response<bool>();
             try
             {
-                await _unitOfWork.Discounts.DeleteAsync(id);
+                await _unitOfWork.Discounts.DeleteAsync(id.ToString());
                 response.Data = await _unitOfWork.Save(cancellationToken) > 0;
 
                 if (response.Data)
