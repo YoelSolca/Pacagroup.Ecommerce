@@ -19,16 +19,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="7.0.0" />
-    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="7.0.0-rc2.7" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="7.0.0-rc2.7" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.0-rc2.7" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.0.0-rc2.7" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="7.0.0-rc2.7" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
@@ -43,7 +47,7 @@
     <ProjectReference Include="..\Pacagroup.Ecommerce.Application.Main\Pacagroup.Ecommerce.Application.UseCases.csproj" />
     <ProjectReference Include="..\Pacagroup.Ecommerce.Application.Validator\Pacagroup.Ecommerce.Application.Validator.csproj" />
     <ProjectReference Include="..\Pacagroup.Ecommerce.Domain.Entity\Pacagroup.Ecommerce.Domain.csproj" />
-    <ProjectReference Include="..\Pacagroup.Ecommerce.Persistence.Repository\Pacagroup.Ecommerce.Persistence.csproj" />
+    <ProjectReference Include="..\Pacagroup.Ecommerce.Persistence\Pacagroup.Ecommerce.Persistence.csproj" />
     <ProjectReference Include="..\Pacagroup.Ecommerce.Transversal.Common\Pacagroup.Ecommerce.Transversal.Common.csproj" />
     <ProjectReference Include="..\Pacagroup.Ecommerce.Transversal.Logging\Pacagroup.Ecommerce.Transversal.Logging.csproj" />
     <ProjectReference Include="..\Pacagroup.Ecommerce.Transversal.Mapper\Pacagroup.Ecommerce.Transversal.Mapper.csproj" />
