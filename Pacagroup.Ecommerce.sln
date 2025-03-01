@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Transve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Persistence", "Pacagroup.Ecommerce.Persistence\Pacagroup.Ecommerce.Persistence.csproj", "{F5291975-08DC-4489-871D-2A9D974C4BE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacagroup.Ecommerce.Infrastructure", "Pacagroup.Ecommerce.Infrastructure\Pacagroup.Ecommerce.Infrastructure.csproj", "{6C324102-3E57-40E8-9871-61F70B98C90E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{F5291975-08DC-4489-871D-2A9D974C4BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5291975-08DC-4489-871D-2A9D974C4BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5291975-08DC-4489-871D-2A9D974C4BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C324102-3E57-40E8-9871-61F70B98C90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C324102-3E57-40E8-9871-61F70B98C90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C324102-3E57-40E8-9871-61F70B98C90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C324102-3E57-40E8-9871-61F70B98C90E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{89353DE8-4F14-44D4-9BE6-BE0520521BFE} = {DF4AEA45-3DDC-4BB2-B08C-43A9F3E5DBF2}
 		{CFFA6873-8FF0-45A7-8776-F3DB7CB87E85} = {09B0BD76-BB4D-4C6B-90C6-4E392C290F5F}
 		{F5291975-08DC-4489-871D-2A9D974C4BE0} = {50B0B24F-0E2D-4BF1-B42F-D7A6178B7064}
+		{6C324102-3E57-40E8-9871-61F70B98C90E} = {50B0B24F-0E2D-4BF1-B42F-D7A6178B7064}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A3A67882-EA02-4925-ABDD-A7C9157A1C7D}
