@@ -1,6 +1,7 @@
 ﻿using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.DotNet.Scaffolding.Shared;
 using Pacagroup.Ecommerce.Application.UseCases;
 using Pacagroup.Ecommerce.Infrastructure;
 using Pacagroup.Ecommerce.Persistence;
@@ -39,17 +40,24 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
     app.UseSwagger();
     // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
     // specifying the Swagger JSON endpoint.
     app.UseSwaggerUI(c =>
     {
-        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-
         // build a swagger endpoint for each discovered API version
         foreach (var description in provider.ApiVersionDescriptions)
         {
             c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
+    });
+    app.UseReDoc(options =>
+    {
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.DocumentTitle = "Pacagroup Technology Services API Market";
+            options.SpecUrl = ($"/swagger/{description.GroupName}/swagger.json");
         }
     });
 }
