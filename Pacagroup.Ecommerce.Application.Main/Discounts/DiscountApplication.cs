@@ -7,6 +7,7 @@ using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Domain.Events;
 using Pacagroup.Ecommerce.Transversal.Common;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -70,7 +71,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
             {
                 var discount = await _unitOfWork.Discounts.GetAsync(id, cancellationToken);
 
-                if(discount is null)
+                if (discount is null)
                 {
                     response.IsSuccess = true;
                     response.Message = "Descuento no existe...";
@@ -96,7 +97,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
                 var discounts = await _unitOfWork.Discounts.GetAllAsync(cancellationToken);
                 response.Data = _mapper.Map<List<DiscountDto>>(discounts);
 
-                if(response.Data != null)
+                if (response.Data != null)
                 {
                     response.IsSuccess = true;
                     response.Message = "Consulta Exitosa!!!";
@@ -158,6 +159,34 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
             {
                 response.Message = ex.Message;
             }
+            return response;
+        }
+
+        public async Task<ResponsePagination<IEnumerable<DiscountDto>>> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+            var response = new ResponsePagination<IEnumerable<DiscountDto>>();
+
+            try
+            {
+                var count = await _unitOfWork.Discounts.CountAsync();
+
+                var discounts = await _unitOfWork.Discounts.GetAllWithPaginationAsync(pageNumber, pageSize);
+                response.Data = _mapper.Map<IEnumerable<DiscountDto>>(discounts);
+                if (response.Data != null)
+                {
+                    response.PageNumber = pageNumber;
+                    response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+                    response.TotalCount = count;
+
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Paginada Exitosa!!!";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = e.Message;
+            }
+
             return response;
         }
     }
