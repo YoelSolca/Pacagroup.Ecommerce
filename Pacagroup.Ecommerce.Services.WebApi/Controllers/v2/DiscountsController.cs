@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.IdentityModel.Tokens;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
-using Pacagroup.Ecommerce.Application.UseCases.Customers;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {
@@ -89,6 +86,16 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
                 return Ok(response);
 
             return BadRequest(response);
+        }
+
+        [HttpGet("GetAllWithPagination")]
+        public async Task<IActionResult> GetAllWithPagination([FromQuery] int pageNumber, int pageSize)
+        {
+            var response = await _discountApplication.GetAllWithPagination(pageNumber, pageSize);
+            if (response.IsSuccess)
+                return Ok(response);
+
+            return BadRequest(response.Message);
         }
     }
 }
