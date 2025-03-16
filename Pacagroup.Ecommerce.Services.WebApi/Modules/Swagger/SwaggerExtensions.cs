@@ -1,12 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.IO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 {
@@ -18,7 +14,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
-            {                
+            {
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -42,7 +38,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 
                 c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
 
-                c.AddSecurityRequirement( new OpenApiSecurityRequirement
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     { securityScheme, new List<string>() { } }
                 });
