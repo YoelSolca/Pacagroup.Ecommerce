@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.IdentityModel.Tokens;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
-using Pacagroup.Ecommerce.Application.UseCases.Customers;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {
@@ -84,7 +82,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
         public async Task<IActionResult> GetAll()
         {
             var response = await _discountApplication.GetAll();
-           
+
             if (response.IsSuccess)
                 return Ok(response);
 
