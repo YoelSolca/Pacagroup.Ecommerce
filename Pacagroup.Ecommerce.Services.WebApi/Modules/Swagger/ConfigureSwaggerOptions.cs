@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Asp.Versioning.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 {
@@ -28,7 +26,8 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
             }
         }
 
-        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description) {
+        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+        {
             var info = new OpenApiInfo
             {
                 Version = description.ApiVersion.ToString(),

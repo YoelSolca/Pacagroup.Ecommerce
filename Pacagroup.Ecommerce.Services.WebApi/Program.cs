@@ -1,7 +1,6 @@
-﻿using HealthChecks.UI.Client;
+using Asp.Versioning.ApiExplorer;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.DotNet.Scaffolding.Shared;
 using Pacagroup.Ecommerce.Application.UseCases;
 using Pacagroup.Ecommerce.Infrastructure;
 using Pacagroup.Ecommerce.Persistence;

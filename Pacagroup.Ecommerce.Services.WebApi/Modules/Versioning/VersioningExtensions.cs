@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.Versioning;
+﻿using Asp.Versioning;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning
 {
@@ -9,13 +8,11 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning
         {
             services.AddApiVersioning(o =>
             {
-                o.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                o.DefaultApiVersion = new ApiVersion(1, 0);
                 o.AssumeDefaultVersionWhenUnspecified = true;
                 o.ReportApiVersions = true;
                 o.ApiVersionReader = new UrlSegmentApiVersionReader();
-            });
-
-            services.AddVersionedApiExplorer(options =>
+            }).AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
