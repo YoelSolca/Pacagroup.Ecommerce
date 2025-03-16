@@ -257,7 +257,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Customers
             return response;
         }
 
-        public async Task<ResponsePagination<IEnumerable<CustomerDto>>> GetaAllWithPaginationAsync(int pageNumbrer, int pageSize)
+        public async Task<ResponsePagination<IEnumerable<CustomerDto>>> GetaAllWithPaginationAsync(int pageNumber, int pageSize)
         {
             var response = new ResponsePagination<IEnumerable<CustomerDto>>();
 
@@ -265,23 +265,21 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Customers
             {
                 var count = await _unitOfWork.Customers.CountAsync();
 
-                var customers = await _unitOfWork.Customers.GetAllWithPaginationAsync(pageNumbrer, pageSize);
+                var customers = await _unitOfWork.Customers.GetAllWithPaginationAsync(pageNumber, pageSize);
                 response.Data = _mapper.Map<IEnumerable<CustomerDto>>(customers);
                 if (response.Data != null)
                 {
-                    response.PageNumber = pageNumbrer;
+                    response.PageNumber = pageNumber;
                     response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
                     response.TotalCount = count;
 
                     response.IsSuccess = true;
                     response.Message = "Consulta Paginada Exitosa!!!";
-                    _logger.LogInformation("Consulta Exitosa!!!");
                 }
             }
             catch (Exception e)
             {
                 response.Message = e.Message;
-                _logger.LogError(e.Message);
             }
             return response;
         }

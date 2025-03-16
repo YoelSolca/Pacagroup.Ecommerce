@@ -1,4 +1,4 @@
-﻿using Asp.Versioning;
+sing Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -87,6 +87,16 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
                 return Ok(response);
 
             return BadRequest(response);
+        }
+
+        [HttpGet("GetAllWithPagination")]
+        public async Task<IActionResult> GetAllWithPagination([FromQuery] int pageNumber, int pageSize)
+        {
+            var response = await _discountApplication.GetAllWithPagination(pageNumber, pageSize);
+            if (response.IsSuccess)
+                return Ok(response);
+
+            return BadRequest(response.Message);
         }
     }
 }

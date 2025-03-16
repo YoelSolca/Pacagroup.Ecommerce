@@ -159,9 +159,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
         }
 
         [HttpGet("GetAllWithPaginationAsync")]
-        public async Task<IActionResult> GetAllWithPaginationAsync([FromQuery] int pageNumbre, int pageSize)
+        public async Task<IActionResult> GetAllWithPaginationAsync([FromQuery] int pageNumber, int pageSize)
         {
-            var response = await _customersApplication.GetaAllWithPaginationAsync(pageNumbre, pageSize);
+            var response = await _customersApplication.GetaAllWithPaginationAsync(pageNumber, pageSize);
             if (response.IsSuccess)
                 return Ok(response);
 
