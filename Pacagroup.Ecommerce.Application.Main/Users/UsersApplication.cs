@@ -31,22 +31,12 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Users
                 response.Error = validation.Errors;
                 return response;
             }
-            try
-            {
+           
                 var user = _unitOfWork.Users.Authenticate(username, password);
                 response.Data = _mapper.Map<UserDto>(user);
                 response.IsSuccess = true;
                 response.Message = "Autenticación Exitosa!!!";
-            }
-            catch (InvalidOperationException)
-            {
-                response.IsSuccess = true;
-                response.Message = "Usuario no existe";
-            }
-            catch (Exception e)
-            {
-                response.Message = e.Message;
-            }
+
             return response;
         }
     }
