@@ -32,42 +32,35 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Categories
             var response = new Response<IEnumerable<CategoryDto>>();
             var cacheKey = "categoriesList";
 
-            try
+            var redisCategories = await _distributedCache.GetAsync(cacheKey);
+
+            if (redisCategories != null)
             {
-                var redisCategories = await _distributedCache.GetAsync(cacheKey);
+                response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDto>>(redisCategories);
+            }
+            else
+            {
+                var categories = await _unitOfWork.Categories.GetAll();
+                response.Data = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
-                if (redisCategories != null)
+                if (response.Data != null)
                 {
-                    response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDto>>(redisCategories);
-                }
-                else
-                {
-                    var categories = await _unitOfWork.Categories.GetAll();
-                    response.Data = _mapper.Map<IEnumerable<CategoryDto>>(categories);
-
-                    if (response.Data != null)
-                    {
-                        var serializedCategories = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response.Data));
-                        var options = new DistributedCacheEntryOptions()
-                                     .SetAbsoluteExpiration(DateTime.Now.AddHours(8))
-                                     .SetSlidingExpiration(TimeSpan.FromMinutes(60));
+                    var serializedCategories = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response.Data));
+                    var options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddHours(8))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(60));
 
 
-                        await _distributedCache.SetAsync(cacheKey, serializedCategories, options);
-                    }
-                }
-
-
-                if (response != null)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Consulta exitosa!!";
+                    await _distributedCache.SetAsync(cacheKey, serializedCategories, options);
                 }
             }
-            catch (Exception ex)
+
+            if (response != null)
             {
-                response.Message = ex.Message;
+                response.IsSuccess = true;
+                response.Message = "Consulta exitosa!!";
             }
+
             return response;
         }
     }
