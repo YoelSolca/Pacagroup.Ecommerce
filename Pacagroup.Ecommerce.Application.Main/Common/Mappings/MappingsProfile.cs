@@ -3,6 +3,8 @@ using AutoMapper;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Domain.Events;
+using Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.CreateCustomerCommand;
+using Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.UpdateCustomerCommand;
 
 namespace Pacagroup.Ecommerce.Application.UseCases.Common.Mappings
 {
@@ -15,6 +17,10 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Common.Mappings
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Discount, DiscountDto>().ReverseMap();
             CreateMap<Discount, DiscountCreatedEvent>().ReverseMap();
+
+            CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
+            CreateMap<Customer, UpdateCustomerCommand>().ReverseMap();
+
 
             //CreateMap<Customers, CustomersDto>().ReverseMap()
             //    .ForMember(destination => destination.CustomerId, source => source.MapFrom(src => src.CustomerId))
