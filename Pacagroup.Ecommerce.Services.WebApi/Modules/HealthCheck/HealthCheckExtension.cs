@@ -9,7 +9,9 @@
                 .AddRedis(configuration.GetConnectionString("RedisConnection"), tags: new[] { "cache" })
                 .AddCheck<HealthCheckCustom>("HealthCheckCustom", tags: new[] { "custom" });
 
-            services.AddHealthChecksUI().AddInMemoryStorage();
+
+            services.AddHealthChecksUI().AddSqlServerStorage(configuration.GetConnectionString("NorthwindConnection"));
+            //services.AddHealthChecksUI().AddInMemoryStorage();
 
             return services;
         }
