@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.UseCases.Categories;
+using Pacagroup.Ecommerce.Application.UseCases.Common.Behaviours;
 using Pacagroup.Ecommerce.Application.UseCases.Customers;
 using Pacagroup.Ecommerce.Application.UseCases.Discounts;
 using Pacagroup.Ecommerce.Application.UseCases.Users;
@@ -17,6 +19,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
             });
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
