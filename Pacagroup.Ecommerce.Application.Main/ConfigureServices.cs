@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
@@ -7,7 +8,6 @@ using Pacagroup.Ecommerce.Application.UseCases.Common.Behaviours;
 using Pacagroup.Ecommerce.Application.UseCases.Customers;
 using Pacagroup.Ecommerce.Application.UseCases.Discounts;
 using Pacagroup.Ecommerce.Application.UseCases.Users;
-using Pacagroup.Ecommerce.Application.Validator;
 using System.Reflection;
 
 namespace Pacagroup.Ecommerce.Application.UseCases
@@ -16,10 +16,14 @@ namespace Pacagroup.Ecommerce.Application.UseCases
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             });
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -27,9 +31,6 @@ namespace Pacagroup.Ecommerce.Application.UseCases
             services.AddScoped<IUsersApplication, UsersApplication>();
             services.AddScoped<ICategoriesApplication, CategoriesApplication>();
             services.AddScoped<IDiscountApplication, DiscountApplication>();
-
-            services.AddTransient<UsersDtoValidator>();
-            services.AddTransient<DiscountDtoValidator>();
 
             return services;
         }
