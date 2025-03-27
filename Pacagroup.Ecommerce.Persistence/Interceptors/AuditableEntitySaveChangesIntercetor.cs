@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Pacagroup.Ecommerce.Application.Interface.Presentation;
 using Pacagroup.Ecommerce.Domain.Common;
 using System;
 using System.Threading;
@@ -9,6 +10,13 @@ namespace Pacagroup.Ecommerce.Persistence.Interceptors
 {
     public class AuditableEntitySaveChangesIntercetor : SaveChangesInterceptor
     {
+        public readonly ICurrentUser _currentUser;
+
+        public AuditableEntitySaveChangesIntercetor(ICurrentUser currentUser)
+        {
+            _currentUser = currentUser;
+        }
+
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {
             UpdateEntities(eventData.Context);
@@ -28,17 +36,16 @@ namespace Pacagroup.Ecommerce.Persistence.Interceptors
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedBy = "System";
+                    entry.Entity.CreatedBy = _currentUser.UserName;
                     entry.Entity.Created = DateTime.Now;
                 }
 
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Entity.LastModifiedBy = "System";
+                    entry.Entity.LastModifiedBy = _currentUser.UserName;
                     entry.Entity.LastModified = DateTime.Now;
                 }
             }
         }
-
     }
 }

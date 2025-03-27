@@ -1,11 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
-using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication
 {
@@ -22,6 +18,8 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             var Issuer = appSettings.Issuer;
             var Audience = appSettings.Audience;
+
+            services.AddHttpContextAccessor();
 
             services.AddAuthentication(x =>
             {
@@ -42,7 +40,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication
                     {
                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                         {
-                            context.Response.Headers.Add("Token-Expired", "true");
+                            context.Response.Headers.Append("Token-Expired", "true");
                         }
                         return Task.CompletedTask;
                     }

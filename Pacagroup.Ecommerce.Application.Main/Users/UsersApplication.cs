@@ -3,6 +3,7 @@ using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Transversal.Common;
+using System.Threading.Tasks;
 
 namespace Pacagroup.Ecommerce.Application.UseCases.Users
 {
@@ -16,11 +17,11 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Users
             _unitOfWork = unitOfWork;
             _mapper = iMapper;
         }
-        public Response<UserDto> Authenticate(string username, string password)
+        public async Task<Response<UserDto>> Authenticate(string username, string password)
         {
             var response = new Response<UserDto>();
 
-            var user = _unitOfWork.Users.Authenticate(username, password);
+            var user = await _unitOfWork.Users.Authenticate(username, password);
             response.Data = _mapper.Map<UserDto>(user);
             response.IsSuccess = true;
             response.Message = "Autenticación Exitosa!!!";
