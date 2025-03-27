@@ -30,9 +30,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public IActionResult Authenticate([FromBody] UserDto usersDto)
+        public async Task<IActionResult> Authenticate([FromBody] UserDto usersDto)
         {
-            var response = _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);
+            var response = await _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);
             if (response.IsSuccess)
             {
                 if (response.Data != null)

@@ -30,9 +30,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public IActionResult Authenticate([FromBody] UserDto usersDto)
+        public async Task<IActionResult> Authenticate([FromBody] UserDto usersDto)
         {
-            var response = _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);
+            var response = await _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);
             if (response.IsSuccess)
             {
                 if (response.Data != null)
@@ -51,6 +51,12 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var claims = new Dictionary<string, object>
+            {
+                { "userid", usersDto.Data.UserId.ToString() },
+                { "username", usersDto.Data.UserName }
+            };
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -60,7 +66,8 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _appSettings.Issuer,
-                Audience = _appSettings.Audience
+                Audience = _appSettings.Audience,
+                Claims = claims
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
