@@ -30,7 +30,6 @@ namespace Pacagroup.Ecommerce.Persistence.Contexts
         {
             optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
             optionsBuilder.EnableSensitiveDataLogging();
-            base.OnConfiguring(optionsBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

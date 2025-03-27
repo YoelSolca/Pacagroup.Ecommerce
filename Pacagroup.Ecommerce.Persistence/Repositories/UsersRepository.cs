@@ -2,6 +2,7 @@
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Persistence.Contexts;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -17,8 +18,9 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
         }
         public async Task<User> Authenticate(string userName, string password)
         {
-            using (var connection = _context.CreateConnection())
+            try
             {
+                using var connection = _context.CreateConnection();
                 var query = "UsersGetByUserAndPassword";
                 var parameters = new DynamicParameters();
                 parameters.Add("UserName", userName);
@@ -27,7 +29,13 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
                 var user = await connection.QuerySingleOrDefaultAsync<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return user;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en Authenticate: {ex.Message}");
+                throw;
+            }
         }
+
 
         public int Count()
         {
