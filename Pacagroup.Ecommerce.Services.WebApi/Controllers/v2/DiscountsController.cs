@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Pacagroup.Ecommerce.Application.DTO;
@@ -68,9 +69,10 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
         }
 
         [HttpGet("Get/{id}")]
+        [RequestTimeout("CustomPolicy")]
         public async Task<IActionResult> Get(int id)
         {
-            var response = await _discountApplication.Get(id);
+            var response = await _discountApplication.Get(id, HttpContext.RequestAborted);
 
             if (response.IsSuccess)
                 return Ok(response);
@@ -81,7 +83,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _discountApplication.GetAll();
+            var response = await _discountApplication.GetAll(HttpContext.RequestAborted);
 
             if (response.IsSuccess)
                 return Ok(response);

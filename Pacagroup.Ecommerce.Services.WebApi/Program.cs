@@ -64,6 +64,7 @@ app.UseCors("policyApiEcommerce");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
+app.UseRequestTimeouts();
 app.MapControllers();
 app.MapHealthChecksUI();
 app.MapHealthChecks("/health", new HealthCheckOptions
