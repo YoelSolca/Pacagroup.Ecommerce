@@ -33,6 +33,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
         public async Task<IActionResult> Authenticate([FromBody] UserDto usersDto)
         {
             var response = await _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);
+
             if (response.IsSuccess)
             {
                 if (response.Data != null)
