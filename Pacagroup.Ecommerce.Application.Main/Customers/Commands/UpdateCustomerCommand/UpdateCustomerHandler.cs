@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entities;
+using Pacagroup.Ecommerce.Domain.Specifications;
 using Pacagroup.Ecommerce.Transversal.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +25,17 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.UpdateCust
             var response = new Response<bool>();
 
             var customer = _mapper.Map<Customer>(request);
+
+            /* Uso del patron Specification*/
+            var countryInBlackListSpec = new CountryInBlackListSpecification();
+
+            if (!countryInBlackListSpec.IsSatisfiedBy(customer))
+            {
+                response.IsSuccess = false;
+                response.Message = $"Los clientes del pais {customer.Country} no se pueden actualizar porque se encuentra en lista negra.";
+                return response;
+            }
+
             response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
             if (response.Data)
             {
