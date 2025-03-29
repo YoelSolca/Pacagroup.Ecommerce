@@ -1,10 +1,5 @@
-﻿
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http.Timeouts;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Feature
 {
@@ -25,6 +20,14 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Feature
                                                                  var enumConverter = new JsonStringEnumConverter();
                                                                  options.JsonSerializerOptions.Converters.Add(enumConverter);
             });
+
+            services.AddRequestTimeouts(option =>
+            {
+                option.DefaultPolicy =
+                new RequestTimeoutPolicy { Timeout = TimeSpan.FromMilliseconds(1500)};
+                option.AddPolicy("CustomPolicy", TimeSpan.FromMilliseconds(2000));
+        });
+
 
             return services;
         }
